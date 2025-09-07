@@ -1,12 +1,14 @@
+
 <?php
 include '../includes/db.php';
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     $name = $_POST['name'];
     $email = $_POST['email'];
+    $city = $_POST['city'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $name, $email, $password);
+    $stmt = $conn->prepare("INSERT INTO users (name, email, city, password) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $name, $email, $city, $password);
     if ($stmt->execute())
     {
         header("Location: login.php");
@@ -26,7 +28,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
             </div>
             <div class="card-body bg-light">
                 <?php if(isset($error)){ ?>
-                    <div class="alert alert-danger text-center"><?= $error ?></div>
+                    <div class="alert alert-danger text-center"><?php $error ?></div>
                 <?php } ?>
                 <form method="post">
                     <div class="mb-3">
@@ -36,6 +38,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" id="email" name="email" class="form-control" placeholder="Email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" id="city" name="city" class="form-control" placeholder="City" required>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>

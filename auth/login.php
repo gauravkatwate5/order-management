@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <div class="card-body bg-light">
                 <?php if(isset($error)){ ?>
-                    <div class="alert alert-danger text-center"><?= $error ?></div>
+                    <div class="alert alert-danger text-center"><?php $error ?></div>
                 <?php } ?>
                 <form method="post">
                     <div class="mb-3">
