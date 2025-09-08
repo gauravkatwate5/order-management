@@ -8,7 +8,7 @@ include '../includes/header.php';
 $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 if(empty($cart))
 {
-    echo "<div class='alert alert-warning'>Your cart is empty.</div>";
+    echo "<div class='container py-5'><div class='row justify-content-center'><div class='col-12 col-md-8'><div class='alert alert-warning text-center'>Your cart is empty.</div></div></div></div>";
     include '../includes/footer.php';
     exit();
 }
@@ -28,7 +28,7 @@ if($order_count >= 5)
     $stmt->bind_param("is", $user_id, $reason);
     $stmt->execute();
     $stmt->close();
-    echo "<div class='alert alert-danger'>You have exceeded today's order limit.</div>";
+    echo "<div class='container py-5'><div class='row justify-content-center'><div class='col-12 col-md-8'><div class='alert alert-danger text-center'>You have exceeded today's order limit.</div></div></div></div>";
     include '../includes/footer.php';
     exit();
 }
@@ -57,7 +57,7 @@ if($insufficient)
     $stmt->bind_param("is", $user_id, $reason);
     $stmt->execute();
     $stmt->close();
-    echo "<div class='alert alert-danger'>Some items are out of stock.</div>";
+    echo "<div class='container py-5'><div class='row justify-content-center'><div class='col-12 col-md-8'><div class='alert alert-danger text-center'>Some items are out of stock.</div></div></div></div>";
     include '../includes/footer.php';
     exit();
 }
@@ -93,9 +93,9 @@ try {
 
     $conn->commit();
     unset($_SESSION['cart']);
-    echo "<div class='alert alert-success'>Order placed successfully!</div>";
+    echo "<div class='container py-5'><div class='row justify-content-center'><div class='col-12 col-md-8'><div class='alert alert-success text-center'>Order placed successfully!</div></div></div></div>";
 } catch (Exception $e) {
     $conn->rollback();
-    echo "<div class='alert alert-danger'>Failed to place order.</div>";
+    echo "<div class='container py-5'><div class='row justify-content-center'><div class='col-12 col-md-8'><div class='alert alert-danger text-center'>Failed to place order.</div></div></div></div>";
 }
 include '../includes/footer.php';
