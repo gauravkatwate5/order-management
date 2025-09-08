@@ -39,15 +39,15 @@ while($row = $city_result->fetch_assoc()) {
                     <table class="table table-hover align-middle">
                         <thead class="table-light">
                             <tr>
-                                <th>ID</th>
+                                <th>Sr No</th>
                                 <th>Date</th>
                                 <th>Items</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <?php while($order = $result->fetch_assoc()) {?>
+                        <?php $key = 1; while($order = $result->fetch_assoc()) { ?>  
                             <tr>
-                                <td class="fw-semibold text-primary">#<?php echo $order['id'] ?></td>
+                                <td class="fw-semibold text-primary">#<?php echo $key++?></td>
                                 <td><?php echo date('d-m-Y H:i', strtotime($order['created_at'])) ?></td>
                                 <td>
                                     <?php
