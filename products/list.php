@@ -27,13 +27,13 @@ $result = $conn->query("SELECT * FROM products");
                         <tbody>
                         <?php while($row = $result->fetch_assoc()){ ?>
                             <tr>
-                                <td class="fw-semibold text-primary"><?php htmlspecialchars($row['name']) ?></td>
-                                <td><span class="badge bg-success">₹<?php $row['price'] ?></span></td>
-                                <td><?php $row['stock'] ?></td>
+                                <td class="fw-semibold text-primary"><?php echo htmlspecialchars($row['name']) ?></td>
+                                <td><span class="badge bg-success">₹<?php echo $row['price'] ?></span></td>
+                                <td><?php echo $row['stock'] ?></td>
                                 <td>
                                     <form method="post" action="../cart/add_to_cart.php" class="d-flex align-items-center gap-2">
-                                        <input type="hidden" name="product_id" value="<?php $row['id'] ?>">
-                                        <input type="number" name="quantity" value="1" min="1" max="<?php $row['stock'] ?>" class="form-control form-control-sm w-50">
+                                        <input type="hidden" name="product_id" value="<?php echo $row['id'] ?>">
+                                        <input type="number" name="quantity" value="1" min="1" max="<?php echo $row['stock'] ?>" class="form-control form-control-sm w-50">
                                         <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Add</button>
                                     </form>
                                 </td>

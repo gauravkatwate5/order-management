@@ -21,17 +21,17 @@ while($row = $city_result->fetch_assoc()) {
             <div class="card-header bg-primary text-white d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2">
                 <h2 class="mb-0"><i class="bi bi-list-check"></i> Your Orders</h2>
                 <div class="d-flex flex-wrap gap-2 mt-3 mt-md-0">
-                    <a href="../reports/export.php" class="btn btn-outline-success"><i class="bi bi-download"></i> Export My Orders (CSV)</a>
                     <form class="d-flex align-items-center gap-2" method="get" action="../reports/export.php" style="margin-bottom:0;">
                         <input type="hidden" name="filter" value="city">
                         <select name="city" class="form-select form-select-sm" required>
                             <option value="">Select City</option>
                             <?php foreach($cities as $city) { ?>
-                                <option value="<?php htmlspecialchars($city) ?>"><?php htmlspecialchars($city) ?></option>
+                                <option value="<?php echo htmlspecialchars($city) ?>"><?php echo htmlspecialchars($city) ?></option>
                             <?php } ?>
                         </select>
-                        <button type="submit" class="btn btn-outline-info btn-sm"><i class="bi bi-download"></i> Export City Orders</button>
+                        <button type="submit" class="btn btn-info btn-sm"><i class="bi bi-download"></i> Export City Orders</button>
                     </form>
+                    <a href="../reports/export.php" class="btn btn-success"><i class="bi bi-download"></i> Export </a>
                 </div>
             </div>
             <div class="card-body bg-light">
@@ -45,10 +45,10 @@ while($row = $city_result->fetch_assoc()) {
                             </tr>
                         </thead>
                         <tbody>
-                        <?php while($order = $result->fetch_assoc()){?>
+                        <?php while($order = $result->fetch_assoc()) {?>
                             <tr>
-                                <td class="fw-semibold text-primary">#<?php $order['id'] ?></td>
-                                <td><?php $order['created_at'] ?></td>
+                                <td class="fw-semibold text-primary">#<?php echo $order['id'] ?></td>
+                                <td><?php echo date('d-m-Y H:i', strtotime($order['created_at'])) ?></td>
                                 <td>
                                     <?php
                                     $stmt = $conn->prepare("SELECT product_id, quantity FROM order_items WHERE order_id = ?");

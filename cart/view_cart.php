@@ -39,17 +39,17 @@ $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
                                 $total += $subtotal;
                         ?>
                             <tr>
-                                <td class="fw-semibold text-primary"><?php htmlspecialchars($product['name']) ?></td>
-                                <td><span class="badge bg-success">₹<?php $product['price'] ?></span></td>
-                                <td><?php $qty ?></td>
-                                <td><span class="badge bg-info text-dark">₹<?php $subtotal ?></span></td>
+                                <td class="fw-semibold text-primary"><?php echo htmlspecialchars($product['name']) ?></td>
+                                <td><span class="badge bg-success">₹<?php echo $product['price'] ?></span></td>
+                                <td><?php echo $qty ?></td>
+                                <td><span class="badge bg-info text-dark">₹<?php echo $subtotal ?></span></td>
                             </tr>
                         <?php } ?>
                         </tbody>
                     </table>
                 </div>
                 <div class="d-flex justify-content-between align-items-center mt-4">
-                    <h4 class="fw-bold">Total: <span class="text-success">₹<?php $total ?></span></h4>
+                    <h4 class="fw-bold">Total: <span class="text-success">₹<?php echo $total ?></span></h4>
                     <a href="../orders/place_order.php" class="btn btn-success btn-lg"><i class="bi bi-bag-check"></i> Place Order</a>
                 </div>
             </div>
