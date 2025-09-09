@@ -17,5 +17,5 @@ else
     $_SESSION['cart'][$product_id] = $quantity;
 
 
-header("Location: view_cart.php");
+header("Location: ../products/list.php");
 exit();

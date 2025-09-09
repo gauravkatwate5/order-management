@@ -20,6 +20,28 @@ $stmt->bind_result($order_count);
 $stmt->fetch();
 $stmt->close();
 
+if(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0)
+{
+    $total = 0;
+    foreach($_SESSION['cart'] as $product_id => $qty)
+    {
+        $stmt = $conn->prepare("SELECT name, price FROM products WHERE id = ?");
+        $stmt->bind_param("i", $product_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $product = $result->fetch_assoc();
+        $subtotal = $product['price'] * $qty;
+        $total += $subtotal;
+    }   
+}
+
+if((int)$total > 20000)
+{
+    echo "<div class='container py-5'><div class='row justify-content-center'><div class='col-12 col-md-8'><div class='alert alert-danger text-center'>You cant add order that amount is greter 20000.</div></div></div></div>";
+    include '../includes/footer.php';
+    exit();
+}
+
 if($order_count >= 5)
 {
     $stmt = $conn->prepare("INSERT INTO failed_orders (user_id, reason) VALUES (?, ?)");

@@ -1,5 +1,6 @@
 
 <?php
+session_start();
 require '../includes/auth.php';
 $user_id = check_jwt();
 include '../includes/db.php';
@@ -41,6 +42,9 @@ $result = $conn->query("SELECT * FROM products");
                         <?php } ?>
                         </tbody>
                     </table>
+                    <?php if(isset($_SESSION['cart']) && $_SESSION['cart'] > 0){ ?>
+                        <a href="../cart/view_cart.php" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Go To Cart</a>
+                    <?php } ?>
                 </div>
             </div>
         </div>

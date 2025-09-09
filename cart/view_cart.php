@@ -7,6 +7,8 @@ include '../includes/db.php';
 include '../includes/header.php';
 
 $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+$quantity = 0;
+$discount = 0.0;
 ?>
 <div class="row justify-content-center">
     <div class="col-lg-10">
@@ -30,6 +32,7 @@ $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
                         $total = 0;
                         foreach($cart as $product_id => $qty)
                         {
+                                $quantity += $qty;
                                 $stmt = $conn->prepare("SELECT name, price FROM products WHERE id = ?");
                                 $stmt->bind_param("i", $product_id);
                                 $stmt->execute();
@@ -48,12 +51,28 @@ $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
                         </tbody>
                     </table>
                 </div>
+                <?php 
+                    if($quantity >= 5 && $quantity <= 10)
+                    {
+                        $discount = (($total / 100) * 10);
+                        $total = $total - $discount;
+                    }
+                    else if($quantity >= 10)
+                    {
+                        $discount = (($total / 100) * 20);
+                        $total =  $total - $discount;
+                    }
+                    ?>
                 <div class="d-flex justify-content-between align-items-center mt-4">
+                    <h4 class="fw-bold">Discount: <span class="text-success">₹<?php echo $discount ?></span></h4>
                     <h4 class="fw-bold">Total: <span class="text-success">₹<?php echo $total ?></span></h4>
-                    <a href="../orders/place_order.php" class="btn btn-success btn-lg"><i class="bi bi-bag-check"></i> Place Order</a>
+                    <a href="../orders/place_order.php" id="placeOrder" class="btn btn-success btn-lg"><i class="bi bi-bag-check"></i> Place Order</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <?php include '../includes/footer.php'; ?>
+<script>
+    document.getElementByID("placeOrder");
+</script>
