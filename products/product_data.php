@@ -1,6 +1,4 @@
 <?php
-// product_data.php for product-related data operations
-// Example: Fetch product data from the database and return as JSON
 include '../includes/db.php';
 
 header('Content-Type: application/json');

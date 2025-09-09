@@ -13,7 +13,6 @@ if(empty($cart))
     exit();
 }
 
-// Daily limit check
 $stmt = $conn->prepare("SELECT COUNT(*) FROM orders WHERE user_id = ? AND DATE(created_at) = CURDATE()");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -33,7 +32,6 @@ if($order_count >= 5)
     exit();
 }
 
-// Stock check
 $insufficient = false;
 foreach($cart as $product_id => $qty)
 {
@@ -62,7 +60,6 @@ if($insufficient)
     exit();
 }
 
-// Place order
 $conn->begin_transaction();
 try {
     $stmt = $conn->prepare("INSERT INTO orders (user_id) VALUES (?)");

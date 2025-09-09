@@ -8,7 +8,6 @@ include '../includes/header.php';
 
 $result = $conn->query("SELECT * FROM orders WHERE user_id = $user_id ORDER BY created_at DESC");
 
-// Get all cities for dropdown
 $cities = [];
 $city_result = $conn->query("SELECT DISTINCT city FROM users ORDER BY city ASC");
 while($row = $city_result->fetch_assoc()) {
