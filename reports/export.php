@@ -1,27 +1,25 @@
 
 <?php
-// export.php - Export orders as CSV (city-wise or user-wise)
 require '../includes/auth.php';
 $user_id = check_jwt();
 include '../includes/db.php';
 
-// Get filter from query string
 $filter = isset($_GET['filter']) ? $_GET['filter'] : 'user';
 $city = isset($_GET['city']) ? trim($_GET['city']) : '';
 
 header('Content-Type: text/csv');
-if ($filter === 'city' && $city !== '') {
+if ($filter === 'city' && $city !== '')
     $filename = 'orders_city_' . preg_replace('/[^a-zA-Z0-9]/', '_', $city) . '.csv';
-} else {
+else
     $filename = 'orders_user_' . $user_id . '.csv';
-}
+
 header('Content-Disposition: attachment; filename="' . $filename . '"');
 
 $output = fopen('php://output', 'w');
 fputcsv($output, ['Order ID', 'Date', 'User', 'City', 'Product', 'Quantity', 'Price']);
 
-if ($filter === 'city' && $city !== '') {
-    // City-wise export
+if ($filter === 'city' && $city !== '')
+{
     $sql = "SELECT o.id, o.created_at, u.name, u.city, p.name, oi.quantity, p.price
             FROM orders o
             JOIN users u ON o.user_id = u.id
@@ -31,8 +29,9 @@ if ($filter === 'city' && $city !== '') {
             ORDER BY o.created_at DESC";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $city);
-} else {
-    // User-wise export (current user)
+} 
+else
+{
     $sql = "SELECT o.id, o.created_at, u.name, u.city, p.name, oi.quantity, p.price
             FROM orders o
             JOIN users u ON o.user_id = u.id
